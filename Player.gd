@@ -1,9 +1,9 @@
 extends KinematicBody2D
 class_name Player
 
-export(int) var JUMP_FORCE = -180
+export(int) var JUMP_FORCE = -130
 export(int) var JUMP_RELEASE_FORCE = -70
-export(int) var MAX_SPEED = 50
+export(int) var MAX_SPEED = 75
 export(int) var MAX_AIR_SPEED = 80 # Used as the bird's top airspeed
 export(int) var ACCELERATION = 10
 export(int) var FRICTION = 8
@@ -16,6 +16,7 @@ var velocity = Vector2.ZERO
 
 var bird = false
 var stamina = MAX_STAMINA
+var has_flown = false
 
 onready var animatedSprite = $AnimatedSprite
 onready var collisionShape2D = $CollisionShape2D
@@ -43,6 +44,7 @@ func _physics_process(delta):
 		if bird:
 			collisionShape2D.scale.y = 0.35
 			animatedSprite.frames = load("res://PlayerBird.tres")
+			has_flown = false
 		else:
 			collisionShape2D.scale.y = 1
 			animatedSprite.frames = load("res://PlayerHuman.tres")
@@ -94,7 +96,7 @@ func _physics_process(delta):
 			
 			animatedSprite.flip_h = input.x < 0
 		
-		if input.y > 0 and stamina > 0:
+		if input.y > 0 and stamina > 0 and has_flown == false:
 			velocity.y = -50
 			stamina -= 1
 		else:
@@ -104,7 +106,14 @@ func _physics_process(delta):
 			if input.y < 0:
 				velocity.y += 50
 		
+		# Checks if in air to mess with run anims
+		var was_in_air = not is_on_floor()
 		velocity = move_and_slide(velocity, Vector2.UP)
+		var just_landed = is_on_floor() and was_in_air
+		if just_landed:
+			bird = not bird
+			collisionShape2D.scale.y = 1
+			animatedSprite.frames = load("res://PlayerHuman.tres")
 
 func apply_gravity():
 	velocity.y += GRAVITY
@@ -124,3 +133,7 @@ func apply_acceleration(amount):
 		velocity.x = move_toward(velocity.x, MAX_AIR_SPEED * amount, ACCELERATION)
 	else:
 		velocity.x = move_toward(velocity.x, MAX_SPEED * amount, ACCELERATION)
+
+func _input(event):
+	if event.is_action_released("ui_up") and bird == true:
+		has_flown = true
