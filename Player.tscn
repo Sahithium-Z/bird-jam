@@ -9,6 +9,7 @@ extents = Vector2( 7, 11 )
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 2
 script = ExtResource( 2 )
+FRICTION = 10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 3 )
@@ -17,7 +18,7 @@ shape = SubResource( 3 )
 position = Vector2( 0, -2 )
 frames = ExtResource( 1 )
 animation = "Run"
-frame = 3
+frame = 4
 playing = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
