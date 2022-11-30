@@ -11,6 +11,7 @@ export(int) var AIR_FRICTION = 1
 export(int) var GRAVITY = 4
 export(int) var FASTFALL_GRAV = 2
 export(int) var MAX_STAMINA = 150 # Max frames bird can gain altitude
+export(int) var BIRD_GRAVITY = 10
 
 var velocity = Vector2.ZERO
 
@@ -101,8 +102,8 @@ func _physics_process(delta):
 			stamina -= 1
 		else:
 			velocity.y += 2
-			if velocity.y > GRAVITY:
-				velocity.y = GRAVITY
+			if velocity.y > BIRD_GRAVITY:
+				velocity.y = BIRD_GRAVITY
 			if input.y < 0:
 				velocity.y += 50
 		
