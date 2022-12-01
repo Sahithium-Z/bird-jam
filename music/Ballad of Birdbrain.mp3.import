@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Ballad of Birdbrain.mp3-34dbae151bc40b9ca17c75ca90973acd.mp3str"
+
+[deps]
+
+source_file="res://music/Ballad of Birdbrain.mp3"
+dest_files=[ "res://.import/Ballad of Birdbrain.mp3-34dbae151bc40b9ca17c75ca90973acd.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
