@@ -24,6 +24,10 @@ config/name="Bird Jam"
 run/main_scene="res://Levels/FirstLevel.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+MusicPlayer="*res://music/MusicPlayer.tscn"
+
 [display]
 
 window/size/width=640
