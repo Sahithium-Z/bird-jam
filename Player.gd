@@ -138,3 +138,9 @@ func apply_acceleration(amount):
 func _input(event):
 	if event.is_action_released("ui_up") and bird == true:
 		has_flown = true
+
+
+
+func _on_Seeds_touched():
+	has_flown = false
+	stamina = MAX_STAMINA
